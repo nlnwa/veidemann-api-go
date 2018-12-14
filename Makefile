@@ -26,7 +26,7 @@ tools:
 	go get google.golang.org/genproto/googleapis/api/annotations
 
 build: veidemann-api
-	find veidemann-api/protobuf -name *.proto -exec 'tools/bin/protoc' '-Iveidemann-api/protobuf' '-Iveidemann-api/include' '-Itools/include' '--go_out=plugins=grpc,paths=source_relative:.' '{}' ';'
+	find veidemann-api -name *.proto -exec 'tools/bin/protoc' '-Iveidemann-api/protobuf' '-Iveidemann-api/include' '-Itools/include' '--go_out=plugins=grpc,paths=source_relative:.' '{}' ';'
 
 veidemann-api: tools
 	git clone --depth=1 --branch ${VEIDEMANN_API_VERSION} git@github.com:nlnwa/veidemann-api.git
