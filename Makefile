@@ -1,4 +1,4 @@
-VEIDEMANN_API_VERSION=v1.0.0-beta1
+VEIDEMANN_API_VERSION=v1.0.0-beta2
 PROTOC_VERSION=3.6.1
 GRPC_WEB_VERSION=1.0.3
 
@@ -9,7 +9,7 @@ GRPC_WEB_VERSION=1.0.3
 all:	tools veidemann-api build
 
 clean:
-	rm -rf protobuf include veidemann-api config veidemann_api
+	rm -rf protobuf include veidemann-api commons config contentwriter dnsresolver frontier robotsevaluator veidemann_api
 
 distclean: clean
 	rm -rf tools
