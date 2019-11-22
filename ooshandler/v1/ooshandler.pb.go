@@ -10,6 +10,8 @@ import (
 	empty "github.com/golang/protobuf/ptypes/empty"
 	v1 "github.com/nlnwa/veidemann-api-go/frontier/v1"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -125,6 +127,14 @@ func (c *oosHandlerClient) SubmitUri(ctx context.Context, in *SubmitUriRequest, 
 // OosHandlerServer is the server API for OosHandler service.
 type OosHandlerServer interface {
 	SubmitUri(context.Context, *SubmitUriRequest) (*empty.Empty, error)
+}
+
+// UnimplementedOosHandlerServer can be embedded to have forward compatible implementations.
+type UnimplementedOosHandlerServer struct {
+}
+
+func (*UnimplementedOosHandlerServer) SubmitUri(ctx context.Context, req *SubmitUriRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitUri not implemented")
 }
 
 func RegisterOosHandlerServer(s *grpc.Server, srv OosHandlerServer) {

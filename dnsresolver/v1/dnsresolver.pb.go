@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	v1 "github.com/nlnwa/veidemann-api-go/config/v1"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -208,6 +210,14 @@ func (c *dnsResolverClient) Resolve(ctx context.Context, in *ResolveRequest, opt
 // DnsResolverServer is the server API for DnsResolver service.
 type DnsResolverServer interface {
 	Resolve(context.Context, *ResolveRequest) (*ResolveReply, error)
+}
+
+// UnimplementedDnsResolverServer can be embedded to have forward compatible implementations.
+type UnimplementedDnsResolverServer struct {
+}
+
+func (*UnimplementedDnsResolverServer) Resolve(ctx context.Context, req *ResolveRequest) (*ResolveReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Resolve not implemented")
 }
 
 func RegisterDnsResolverServer(s *grpc.Server, srv DnsResolverServer) {

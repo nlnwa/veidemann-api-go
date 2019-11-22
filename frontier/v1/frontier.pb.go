@@ -10,6 +10,8 @@ import (
 	v11 "github.com/nlnwa/veidemann-api-go/commons/v1"
 	v1 "github.com/nlnwa/veidemann-api-go/config/v1"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -455,6 +457,17 @@ type FrontierServer interface {
 	// Request a URI from the Frontiers queue
 	// Used by a Harvester to fetch a new page
 	GetNextPage(Frontier_GetNextPageServer) error
+}
+
+// UnimplementedFrontierServer can be embedded to have forward compatible implementations.
+type UnimplementedFrontierServer struct {
+}
+
+func (*UnimplementedFrontierServer) CrawlSeed(ctx context.Context, req *CrawlSeedRequest) (*CrawlExecutionId, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CrawlSeed not implemented")
+}
+func (*UnimplementedFrontierServer) GetNextPage(srv Frontier_GetNextPageServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetNextPage not implemented")
 }
 
 func RegisterFrontierServer(s *grpc.Server, srv FrontierServer) {

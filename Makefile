@@ -1,5 +1,6 @@
-VEIDEMANN_API_VERSION=1.0.0-beta11
-PROTOC_VERSION=3.7.1
+VEIDEMANN_API_VERSION?=1.0.0-beta12
+VEIDEMANN_API_REPOSITORY?=git@github.com:nlnwa/veidemann-api.git
+PROTOC_VERSION=3.10.1
 
 .PHONY: all
 .PHONY: clean
@@ -8,7 +9,7 @@ PROTOC_VERSION=3.7.1
 all:	tools veidemann-api build
 
 clean:
-	rm -rf protobuf include veidemann-api commons config contentwriter dnsresolver frontier robotsevaluator veidemann_api
+	rm -rf protobuf include veidemann-api commons config contentwriter dnsresolver frontier robotsevaluator veidemann_api browsercontroller eventhandler ooshandler controller report
 
 distclean: clean
 	rm -rf tools
@@ -21,11 +22,9 @@ tools:
 	&& rm protoc-${PROTOC_VERSION}-linux-x86_64.zip
 	go get google.golang.org/grpc
 	go get github.com/golang/protobuf/protoc-gen-go
-	go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options
-	go get google.golang.org/genproto/googleapis/api/annotations
 
 build: veidemann-api
-	find veidemann-api -name *.proto -exec 'tools/bin/protoc' '-Iveidemann-api/protobuf' '-Iveidemann-api/include' '-Itools/include' '--go_out=plugins=grpc,paths=source_relative:.' '{}' ';'
+	find veidemann-api -name *.proto -exec 'tools/bin/protoc' '-Iveidemann-api/protobuf' '-Itools/include' '--go_out=plugins=grpc,paths=source_relative:.' '{}' ';'
 
 veidemann-api: tools
-	git clone --depth=1 --branch ${VEIDEMANN_API_VERSION} git@github.com:nlnwa/veidemann-api.git
+	git clone --depth=1 --branch ${VEIDEMANN_API_VERSION} ${VEIDEMANN_API_REPOSITORY}

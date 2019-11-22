@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	v1 "github.com/nlnwa/veidemann-api-go/config/v1"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -300,6 +302,14 @@ func (c *robotsEvaluatorClient) IsAllowed(ctx context.Context, in *IsAllowedRequ
 // RobotsEvaluatorServer is the server API for RobotsEvaluator service.
 type RobotsEvaluatorServer interface {
 	IsAllowed(context.Context, *IsAllowedRequest) (*IsAllowedReply, error)
+}
+
+// UnimplementedRobotsEvaluatorServer can be embedded to have forward compatible implementations.
+type UnimplementedRobotsEvaluatorServer struct {
+}
+
+func (*UnimplementedRobotsEvaluatorServer) IsAllowed(ctx context.Context, req *IsAllowedRequest) (*IsAllowedReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsAllowed not implemented")
 }
 
 func RegisterRobotsEvaluatorServer(s *grpc.Server, srv RobotsEvaluatorServer) {
