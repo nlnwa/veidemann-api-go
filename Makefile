@@ -1,6 +1,6 @@
 VEIDEMANN_API_VERSION?=1.0.0-beta12
 VEIDEMANN_API_REPOSITORY?=git@github.com:nlnwa/veidemann-api.git
-PROTOC_VERSION=3.10.1
+PROTOC_VERSION=3.11.4
 
 .PHONY: all
 .PHONY: clean
@@ -20,8 +20,8 @@ tools:
 	&& wget -q https://github.com/google/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip \
 	&& unzip protoc-${PROTOC_VERSION}-linux-x86_64.zip \
 	&& rm protoc-${PROTOC_VERSION}-linux-x86_64.zip
-	go get google.golang.org/grpc
-	go get github.com/golang/protobuf/protoc-gen-go
+	go get -u google.golang.org/grpc
+	go get -u github.com/golang/protobuf/protoc-gen-go
 
 build: veidemann-api
 	find veidemann-api -name *.proto -exec 'tools/bin/protoc' '-Iveidemann-api/protobuf' '-Itools/include' '--go_out=plugins=grpc,paths=source_relative:.' '{}' ';'
