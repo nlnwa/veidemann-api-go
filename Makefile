@@ -1,4 +1,4 @@
-VEIDEMANN_API_VERSION?=1.0.0-beta18
+VEIDEMANN_API_VERSION?=1.0.0-beta19
 VEIDEMANN_API_REPOSITORY?=https://github.com/nlnwa/veidemann-api
 PROTOC_VERSION=3.13.0
 DIRS=commons config contentwriter dnsresolver frontier robotsevaluator browsercontroller eventhandler ooshandler controller report
